@@ -12,7 +12,6 @@ angular.module('myApp.transactions', ['ngRoute','firebase'])
     .controller('transactionsCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
         var scope = $scope;
         var ref                         = new Firebase('https://budget-tracker-application.firebaseio.com/transaction');
-        var transactions = [];
         var transaction                 =
             scope.transaction           = {
                 'id'                    : null,
@@ -29,18 +28,35 @@ angular.module('myApp.transactions', ['ngRoute','firebase'])
         };
 
         scope.init = function() {
-            transaction.id              = 1 + ($firebaseArray(ref));
+            console.log(allTransactions());
+            transaction.id              = 1 + lastEntry();
             transaction.cashAmount      = 0.00;
             transaction.category        = 'No category';
             transaction.entryDate       = formattedDate(new Date());
             transaction.isExpense       = true;
         };
 
-        scope.transactions = function() {
-            transactions                = $firebaseArray(ref);
+        function allTransactions() {
+            var results = [];
+            ref.on("value", function(snapshot) {
+                console.log(snapshot.val());
+                results = add(snapshot.val());
+            }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+            });
+            console.log(results);
         };
 
-        scope.setTransaction
+        function lastEntry() {
+            var lastEntry = 0;
+            while(allTransactions().nextId()!=null){
+                var object = allTransactions().nextId();
+                if(object.id.val()>lastEntry)lastEntry = object.id.val();
+                console.log(lastEntry);
+            }
+            return lastEntry;
+        };
+
 
         function formattedDate(date) {
             var d = new Date(date || Date.now()),
