@@ -1,0 +1,25 @@
+<div class="inputFormContainer" ng-controller="transactionsCtrl" ng-init="[init(),formatData()]">
+    <fieldset title="Transaction">
+        <h1>Transaction {{transaction.id}}</h1>
+        <div>
+            <span class="formItem nameAttr">Date:</span>
+            <span class="formItem">{{format.formattedDate}}</span>
+        </div>
+        <div>
+            <span class="formItem nameAttr">Cash Amount:</span>
+            <span class="formItem">{{format.formattedCashAmount}}</span>
+        </div>
+        <div>
+            <span class="formItem nameAttr">Category:</span>
+            <span class="formItem">{{transaction.category}}</span>
+        </div>
+        <div>
+            <span class="formItem nameAttr">Expense:</span>
+            <span class="formItem">{{format.formattedIsExpense}}</span>
+        </div>
+    </fieldset>
+</div>
+
+<!--<ul>-->
+    <!--<li ng-repeat="transaction in transactions">{{ transaction.cashAmount }}, {{ transaction.category }}, {{ transaction.isExpense }}</li>-->
+<!--</ul>-->

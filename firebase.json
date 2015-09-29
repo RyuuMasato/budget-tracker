@@ -1,0 +1,9 @@
+{
+  "firebase": "budget-tracker-application",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
