@@ -5,14 +5,14 @@ angular.module('myApp.transactions', ['ngRoute','firebase'])
         ['$routeProvider', function($routeProvider) {
             $routeProvider.when('/transactions', {
                 templateUrl: 'transactions.html',
-                controller: 'transactionsCtrl'
+                controller: ['transactionsCtrl']
             })
         }]
     )
     .controller('transactionsCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
         var scope = $scope;
         var ref                         = new Firebase('https://budget-tracker-application.firebaseio.com/transaction');
-        var transactions;
+        var transactions = [];
         var transaction                 =
             scope.transaction           = {
                 'id'                    : null,
@@ -29,7 +29,7 @@ angular.module('myApp.transactions', ['ngRoute','firebase'])
         };
 
         scope.init = function() {
-            transaction.id              = 1 + ($firebaseArray(ref).length);
+            transaction.id              = 1 + ($firebaseArray(ref));
             transaction.cashAmount      = 0.00;
             transaction.category        = 'No category';
             transaction.entryDate       = formattedDate(new Date());
@@ -39,6 +39,8 @@ angular.module('myApp.transactions', ['ngRoute','firebase'])
         scope.transactions = function() {
             transactions                = $firebaseArray(ref);
         };
+
+        scope.setTransaction
 
         function formattedDate(date) {
             var d = new Date(date || Date.now()),
@@ -66,10 +68,8 @@ angular.module('myApp.transactions', ['ngRoute','firebase'])
         };
 
         scope.addTransaction = function() {
-            transactions = scope.transactions();
-            transactions.$add(
-                    transaction
-            );
+            scope.transactions();
+            transactions.$add(transaction);
             scope.init();
         };
 
