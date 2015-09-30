@@ -1,6 +1,6 @@
-<div class="inputFormContainer" ng-controller="transactionsCtrl" ng-init="[init(),formatData(),allTransactions()]">
+<div class="inputFormContainer" ng-controller="transactionsCtrl" ng-init="[init(),formatData(),setTransaction()]">
     <fieldset title="Transaction">
-        <h1>Transaction {{transaction.id}}</h1>
+        <h1>Transaction</h1>
         <div>
             <span class="formItem nameAttr">Date:</span>
             <span class="formItem">{{format.formattedDate}}</span>
@@ -19,6 +19,8 @@
         </div>
     </fieldset>
 </div>
+
+<!--todo: iterate over db entries to make list with links to single transactions -->
 
 <!--<ul>-->
     <!--<li ng-repeat="transaction in transactions">{{ transaction.cashAmount }}, {{ transaction.category }}, {{ transaction.isExpense }}</li>-->

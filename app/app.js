@@ -6,10 +6,11 @@ angular.module('myApp', [
     'myApp.transactions',
     'myApp.version',
     'angular-momentjs',
-    'firebase'
-])
-    .config(
-    function($routeProvider,$momentProvider) {
+    'firebase',
+    'ngMaterial',
+    'ngAnimate'
+]).config(
+    function($routeProvider,$momentProvider,$mdThemingProvider) {
         $routeProvider.when('/transactions', {
             templateUrl: 'transactions/transactions.html',
             controller: 'transactionsCtrl',
@@ -24,4 +25,23 @@ angular.module('myApp', [
         $momentProvider
             .asyncLoading(false)
             .scriptUrl('bower_components/angular-momentjs/angular-momentjs.min.js');
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue', {
+                'default': '200',
+                'hue-1': '100',
+                'hue-2': '600',
+                'hue-3': 'A100'
+            })
+            .accentPalette('green', {
+                'default': '200',
+                'hue-1': '100',
+                'hue-2': '600',
+                'hue-3': 'A100'
+            })
+            .warnPalette('red', {
+                'default': '200',
+                'hue-1': '100',
+                'hue-2': '600',
+                'hue-3': 'A100'
+        });
     });

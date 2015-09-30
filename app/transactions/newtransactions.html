@@ -1,13 +1,11 @@
 <div class="inputFormContainer" ng-controller="transactionsCtrl" ng-init="[init(),formatData()]">
     <fieldset title="New Transaction">
-        <h1>New Entry ({{transaction.id}})</h1>
+        <h1>New Entry</h1>
         <div>
             <input  class="formItem"
                     id="entryDate"
                     type="date"
-                    onload="$('#entryData').val(now.getDate()  + '/' + (now.getMonth() + 1) + '/' + now.getFullYear());"
-                    ng-bind="transaction.entryDate"
-                    ng-model="format.formattedDate"
+                    ng-model="transaction.entryDate"
                     ng-change="formatData()">
             <span   class="formItem nameAttr">Date:</span>
             <span   class="formItem">{{format.formattedDate}}</span>
@@ -37,7 +35,8 @@
                 <input  id="isExpense"
                         name="isExpense"
                         type="checkbox"
-                        ng-model="transaction.isExpense">
+                        ng-model="transaction.isExpense"
+                        ng-change="formatData()">
             </label>
         </span>
             <span       class="formItem nameAttr">Expense:</span>

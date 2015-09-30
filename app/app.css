@@ -44,24 +44,6 @@ fieldset {
   width: 60%;
 }
 
-input[type="button"] {
-  color: #f9f3ff;
-  background-color: #0a0a28;
-  display: inline-block;
-  width: 150px;
-  height: 50px;
-  text-align: center;
-  -webkit-transition: all .25s ease-in-out;
-  -moz-transition: all .25s ease-in-out;
-  -o-transition: all .25s ease-in-out;
-  transition: all .25s ease-in-out;
-}
-input[type="button"]:hover {
-  zoom: 1;
-  background-color: #f9f3ff;
-  color: #0a0a28;
-}
-
 input{
   width: 148px;
   height: 14px;
@@ -78,4 +60,23 @@ input[type="checkbox"] {
   height: 30px;
   padding: 15px;
   margin: 0 0;
+}
+
+.navbar {
+    background-color: rgb(16,108,200);
+    color: rgba(255,255,255,0.87);
+}
+
+.navbar-menuicon {
+    width: 60px;
+    height: 60px;
+    -webkit-transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+}
+.navbar-menuicon:hover {
+    zoom: 1.05;
+    opacity: 0.5;
+    color: #0a0a28;
 }
