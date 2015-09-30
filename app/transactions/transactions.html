@@ -1,21 +1,22 @@
-<div class="inputFormContainer" ng-controller="transactionsCtrl" ng-init="[init(),formatData(),setTransaction()]">
+<!--todo: mirgate to material design-->
+<div class="inputFormContainer" ng-controller="transactionsCtrl" ng-init="[setLastTransaction(),format()]">
     <fieldset title="Transaction">
         <h1>Transaction</h1>
         <div>
             <span class="formItem nameAttr">Date:</span>
-            <span class="formItem">{{format.formattedDate}}</span>
+            <span class="formItem">{{formatDate}}</span>
         </div>
         <div>
             <span class="formItem nameAttr">Cash Amount:</span>
-            <span class="formItem">{{format.formattedCashAmount}}</span>
+            <span class="formItem">{{formatCash}}</span>
         </div>
         <div>
             <span class="formItem nameAttr">Category:</span>
-            <span class="formItem">{{transaction.category}}</span>
+            <span class="formItem">{{formatCategory}}</span>
         </div>
         <div>
             <span class="formItem nameAttr">Expense:</span>
-            <span class="formItem">{{format.formattedIsExpense}}</span>
+            <span class="formItem">{{formatExpense}}</span>
         </div>
     </fieldset>
 </div>
@@ -23,5 +24,5 @@
 <!--todo: iterate over db entries to make list with links to single transactions -->
 
 <!--<ul>-->
-    <!--<li ng-repeat="transaction in transactions">{{ transaction.cashAmount }}, {{ transaction.category }}, {{ transaction.isExpense }}</li>-->
+    <!--<li ng-repeat="transaction in transactions">{{ transaction.amount }}, {{ transaction.category }}, {{ transaction.expense }}</li>-->
 <!--</ul>-->

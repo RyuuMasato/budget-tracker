@@ -1,24 +1,25 @@
-<div class="inputFormContainer" ng-controller="transactionsCtrl" ng-init="[init(),formatData()]">
+<!--todo: mirgate to material design-->
+<div class="inputFormContainer" ng-controller="transactionsCtrl" ng-init="init()">
     <fieldset title="New Transaction">
-        <h1>New Entry</h1>
+        <h1>New Transaction</h1>
         <div>
             <input  class="formItem"
                     id="entryDate"
                     type="date"
-                    ng-model="transaction.entryDate"
-                    ng-change="formatData()">
+                    ng-model="transaction.date"
+                    ng-change="format()">
             <span   class="formItem nameAttr">Date:</span>
-            <span   class="formItem">{{format.formattedDate}}</span>
+            <span   class="formItem">{{formatDate}}</span>
         </div>
         <div>
             <input  class="formItem"
                     id="cashAmount"
                     type="number"
                     step="0.01"
-                    ng-model="transaction.cashAmount"
-                    ng-change="formatData()">
+                    ng-model="transaction.amount"
+                    ng-change="format()">
             <span   class="formItem nameAttr">Cash Amount:</span>
-            <span   class="formItem">{{format.formattedCashAmount}}</span>
+            <span   class="formItem">{{formatCash}}</span>
         </div>
         <div>
             <input  class="formItem"
@@ -35,17 +36,17 @@
                 <input  id="isExpense"
                         name="isExpense"
                         type="checkbox"
-                        ng-model="transaction.isExpense"
-                        ng-change="formatData()">
+                        ng-model="transaction.expense"
+                        ng-change="format()">
             </label>
         </span>
             <span       class="formItem nameAttr">Expense:</span>
-            <span       class="formItem">{{format.formattedIsExpense}}</span>
+            <span       class="formItem">{{formatExpense}}</span>
         </div>
         <div>
             <input  id="createTransaction"
                     type="button"
-                    ng-click="[addTransaction(),alert('Transaction added.'),init()]"
+                    ng-click="[newTransaction(transaction),getTransactions()]"
                     value="Add">
         </div>
     </fieldset>

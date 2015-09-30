@@ -10,43 +10,51 @@ angular.module('myApp.transactions', ['ngRoute','firebase'])
         }]
     )
     .controller('transactionsCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
-        // todo: look up: if scope = $scope is bad practise
         var scope = $scope;
-        var ref                         = new Firebase('https://budget-tracker-application.firebaseio.com/transaction');
-        // todo: normalize class/attributes
-        var transaction                 =
-            scope.transaction           = {
-                'cashAmount'            : null,
-                'category'              : null,
-                'entryDate'             : null,
-                'isExpense'             : null
-        };
-        var format                      =
-            scope.format                = {
-                'formattedCashAmount'   : null,
-                'formattedIsExpense'    : null,
-                'formattedDate'         : null
-        };
+        var ref = new Firebase('https://budget-tracker-application.firebaseio.com');
+        var transaction = scope.transaction = {date: new Date(), amount: 0, category: '', expense: true};
+
 
         scope.init = function() {
-            transaction.cashAmount      = 0.00;
-            transaction.category        = 'No category';
-            transaction.entryDate       = '';
-            transaction.isExpense       = true;
+            scope.format();
         };
 
-        scope.addTransaction = function() {
+        scope.format = function () {
+            if(transaction.category == '')    scope.formatCategory = 'No category...';
+            else                                scope.formatCategory = transaction.category;
+            scope.formatDate = formatDate(transaction.date);
+            scope.formatCash = '€ ' + transaction.amount;
+            if (transaction.expense)
+                    scope.formatExpense = 'Expense';
+            else    scope.formatExpense = 'Income';
+        };
+
+        scope.newTransaction = function () {
+            // todo: date saves to db as key?
             $firebaseArray(ref).$add(transaction);
-        //    todo: feedback, error check
+        };
+        scope.getTransactions = function() {
+        ref.on("child_added", function (snapshot, prevChildKey) {
+            console.log(snapshot.val());
+            //console.log("Date: " + snapshot.val().date);
+            //console.log("Amount: " + snapshot.val().amount);
+            //console.log("Category: " + snapshot.val().category);
+            //console.log("Title: " + snapshot.val().expense);
+            //console.log("Previous transaction ID: " + prevChildKey);
+        })
         };
 
-        scope.setTransaction = function() {
-            var ref = new Firebase('https://budget-tracker-application.firebaseio.com/transaction');
-            console.log($firebaseArray(ref));
-        //    todo: select single value
+        scope.setLastTransaction = function() {
+          ref.limitToLast(1).once("child_added", function (snapshot, prevChildKey) {
+              var last = snapshot.val();
+              console.log(snapshot.val());
+              transaction.amount = last.amount;
+              transaction.category = last.category;
+              transaction.expense = last.expense;
+          })
         };
 
-        function formattedDate(date) {
+        function formatDate(date) {
             var d = new Date(date || Date.now()),
                 month = '' + (d.getMonth() + 1),
                 day = '' + d.getDate(),
@@ -57,19 +65,7 @@ angular.module('myApp.transactions', ['ngRoute','firebase'])
 
             return [day, month, year].join('/');
         }
-        scope.formatData = function() {
-            var date = transaction.entryDate;
-            format.formattedCashAmount  = '€ 0.00';
-            format.formattedIsExpense   = 'Expense';
-            format.formattedDate        = formattedDate(date);
-            format.formattedCashAmount  = '€ ' + transaction.cashAmount;
-            if (transaction.isExpense)
-                format.formattedIsExpense
-                    = 'Expense';
-            else    format.formattedIsExpense
-                = 'Income';
-        };
+    }]);
 
-}]);
 
 
