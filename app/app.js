@@ -21,7 +21,7 @@ angular.module('myApp', [
             controller: 'transactionsCtrl',
             controllerAs: 'transactions'
         });
-        $routeProvider.otherwise({redirectTo: '/transactions'});
+        $routeProvider.otherwise({redirectTo: '/newtransactions'});
         $momentProvider
             .asyncLoading(false)
             .scriptUrl('bower_components/angular-momentjs/angular-momentjs.min.js');

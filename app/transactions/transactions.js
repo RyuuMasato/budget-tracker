@@ -11,28 +11,43 @@ angular.module('myApp.transactions', ['ngRoute','firebase'])
     )
     .controller('transactionsCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
         var scope = $scope;
-        var ref = new Firebase('https://budget-tracker-application.firebaseio.com');
-        var transaction = scope.transaction = {date: new Date(), amount: 0, category: '', expense: true};
+        var ref = new Firebase('https://budget-tracker-application.firebaseio.com/transactions');
+
+        scope.createTransaction = function() {
+            scope.newDate = new Date();
+            scope.newAmount = 0.00;
+            scope.newCategory = '';
+            scope.newExpense = true;
+        };
 
 
         scope.init = function() {
             scope.format();
         };
 
-        scope.format = function () {
-            if(transaction.category == '')    scope.formatCategory = 'No category...';
-            else                                scope.formatCategory = transaction.category;
-            scope.formatDate = formatDate(transaction.date);
-            scope.formatCash = '€ ' + transaction.amount;
-            if (transaction.expense)
-                    scope.formatExpense = 'Expense';
-            else    scope.formatExpense = 'Income';
+        scope.format = function(date, amount, category, expense) {
+            if(date == null)    scope.dateFormatted = 'no date';
+            else                scope.dateFormatted = formatDate(date);
+
+            if(amount == null || amount == 0)
+                                scope.amountFormatted = '€ 0.00';
+            else                scope.amountFormatted = '€ ' + amount;
+
+            if(category == '')  scope.categoryFormatted = 'no category';
+            else                scope.categoryFormatted = category;
+
+            if (expense)        scope.expenseFormatted = 'Expense';
+            else                scope.expenseFormatted = 'Income';
         };
 
-        scope.newTransaction = function () {
-            // todo: date saves to db as key?
-            $firebaseArray(ref).$add(transaction);
+        scope.addTransaction = function () {
+            $firebaseArray(ref).$add({
+                'date': scope.dateFormatted,
+                'amount': scope.newAmount,
+                'category': scope.categoryFormatted,
+                'expense': scope.newExpense});
         };
+
         scope.getTransactions = function() {
         ref.on("child_added", function (snapshot, prevChildKey) {
             console.log(snapshot.val());
@@ -46,11 +61,12 @@ angular.module('myApp.transactions', ['ngRoute','firebase'])
 
         scope.setLastTransaction = function() {
           ref.limitToLast(1).once("child_added", function (snapshot, prevChildKey) {
-              var last = snapshot.val();
+              var snap = snapshot.val();
               console.log(snapshot.val());
-              transaction.amount = last.amount;
-              transaction.category = last.category;
-              transaction.expense = last.expense;
+              scope.currentDate = snap.date;
+              scope.currentAmount = snap.amount;
+              scope.currentCategory = snap.category;
+              scope.currentExpense = snap.expense;
           })
         };
 
