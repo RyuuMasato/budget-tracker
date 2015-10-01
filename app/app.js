@@ -1,16 +1,17 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
-    'ngRoute',
-    'myApp.transactions',
-    'myApp.version',
-    'angular-momentjs',
-    'firebase',
-    'ngMaterial',
-    'ngAnimate'
-]).config(
-    function($routeProvider,$momentProvider,$mdThemingProvider) {
+var app = angular.module( 'myApp', [
+                'ngRoute',
+                'myApp.transactions',
+                'myApp.version',
+                'angular-momentjs',
+                'firebase',
+                'ngMaterial',
+                'ngAnimate'
+]);
+
+app.config(function($routeProvider,$momentProvider,$mdThemingProvider) {
         $routeProvider.when('/transactions', {
             templateUrl: 'transactions/transactions.html',
             controller: 'transactionsCtrl',
