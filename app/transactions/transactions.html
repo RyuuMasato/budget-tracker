@@ -1,35 +1,31 @@
 <div layout="row" layout-align="center" ng-controller="transactionsCtrl" ng-init="">
-    <div flex="50">
+    <div flex="66">
         <div layout="row" layout-align="center center" layout-margin><span class="md-display-1">Transactions</span></div>
-        <div class="transactionContainer" layout="column" ng-controller="transactionsCtrl" ng-repeat="item in transactions" layout-margin layout-padding>
-            <section layout="row">
-                <section layout="row" layout-align="start center" flex>
-                    <span class="md-body-2" layout="row" layout-align="start center" flex>Category: </span>
-                    <span class="md-body-1" layout="row" layout-align="start center" flex>{{item.category}}</span>
+        <md-input-container layout="row" ng-controller="transactionsCtrl" ng-repeat="item in transactions">
+            <md-button class="md-button" flex>
+                <section layout="row">
+                    <section layout="row" layout-align="start center" flex>
+                        <span class="md-body-2" layout="row" layout-align="start center" layout-margin flex>Category: </span>
+                        <span class="md-body-1" layout="row" layout-align="end center" layout-margin flex>{{item.category}}</span>
+                    </section>
+                    <span layout="row" layout-align="center center" flex="5"></span>
+                    <section layout="row" layout-align="end center" flex>
+                        <span class="md-body-2" layout="row" layout-align="start center" layout-margin flex>Date: </span>
+                        <span class="md-body-1" layout="row" layout-align="end center" layout-margin flex>{{item.date}}</span>
+                    </section>
                 </section>
-                <section layout="row" layout-align="end center" flex>
-                    <span class="md-body-2" layout="row" layout-align="start center" flex>Date: </span>
-                    <span class="md-body-1" layout="row" layout-align="start center" flex>{{item.date}}</span>
+                <section layout="row">
+                    <section layout="row" layout-align="start center" flex>
+                        <span class="md-body-2" layout="row" layout-align="start center" layout-margin flex>Amount: </span>
+                        <span class="md-body-1" layout="row" layout-align="end center" layout-margin flex>{{item.amount}}</span>
+                    </section>
+                    <span layout="row" layout-align="center center" flex="5"></span>
+                    <section layout="row" layout-align="end center" flex>
+                        <span class="md-body-2" layout="row" layout-align="start center" layout-margin flex>Type: </span>
+                        <span class="md-body-1" layout="row" layout-align="end center" layout-margin flex>{{item.expense}}</span>
+                    </section>
                 </section>
-            </section>
-            <section layout="row">
-                <section layout="row" layout-align="start center" flex>
-                    <span class="md-body-2" layout="row" layout-align="start center" flex>Amount: </span>
-                    <span class="md-body-1" layout="row" layout-align="start center" flex>{{item.amount}}</span>
-                </section>
-                <section layout="row" layout-align="end center" flex>
-                    <span class="md-body-2" layout="row" layout-align="start center" flex>Type: </span>
-                    <span class="md-body-1" layout="row" layout-align="start center" flex>{{item.expense}}</span>
-                </section>
-            </section>
-            <section layout="row">
-                <section layout="row" layout-align="start center" flex>
-                    <md-button class="md-button">Edit</md-button>
-                </section>
-                <section layout="row" layout-align="end center" flex>
-                    <md-button class="md-button">Delete</md-button>
-                </section>
-            </section>
+            </md-input-container>
         </div>
     </div>
 </div>
