@@ -1,28 +1,35 @@
-<!--todo: mirgate to material design-->
-<div class="inputFormContainer" ng-controller="transactionsCtrl" ng-init="setLastTransaction()">
-    <fieldset title="Transaction">
-        <h1>Last Transaction</h1>
-        <div>
-            <span class="formItem nameAttr">Date:</span>
-            <span class="formItem">{{currentDate}}</span>
+<div layout="row" layout-align="center" ng-controller="transactionsCtrl" ng-init="">
+    <div flex="50">
+        <div layout="row" layout-align="center center" layout-margin><span class="md-display-1">Transactions</span></div>
+        <div class="transactionContainer" layout="column" ng-controller="transactionsCtrl" ng-repeat="item in transactions" layout-margin layout-padding>
+            <section layout="row">
+                <section layout="row" layout-align="start center" flex>
+                    <span class="md-body-2" layout="row" layout-align="start center" flex>Category: </span>
+                    <span class="md-body-1" layout="row" layout-align="start center" flex>{{item.category}}</span>
+                </section>
+                <section layout="row" layout-align="end center" flex>
+                    <span class="md-body-2" layout="row" layout-align="start center" flex>Date: </span>
+                    <span class="md-body-1" layout="row" layout-align="start center" flex>{{item.date}}</span>
+                </section>
+            </section>
+            <section layout="row">
+                <section layout="row" layout-align="start center" flex>
+                    <span class="md-body-2" layout="row" layout-align="start center" flex>Amount: </span>
+                    <span class="md-body-1" layout="row" layout-align="start center" flex>{{item.amount}}</span>
+                </section>
+                <section layout="row" layout-align="end center" flex>
+                    <span class="md-body-2" layout="row" layout-align="start center" flex>Type: </span>
+                    <span class="md-body-1" layout="row" layout-align="start center" flex>{{item.expense}}</span>
+                </section>
+            </section>
+            <section layout="row">
+                <section layout="row" layout-align="start center" flex>
+                    <md-button class="md-button">Edit</md-button>
+                </section>
+                <section layout="row" layout-align="end center" flex>
+                    <md-button class="md-button">Delete</md-button>
+                </section>
+            </section>
         </div>
-        <div>
-            <span class="formItem nameAttr">Cash Amount:</span>
-            <span class="formItem">{{currentAmount}}</span>
-        </div>
-        <div>
-            <span class="formItem nameAttr">Category:</span>
-            <span class="formItem">{{currentCategory}}</span>
-        </div>
-        <div>
-            <span class="formItem nameAttr">Expense:</span>
-            <span class="formItem">{{currentExpense}}</span>
-        </div>
-    </fieldset>
+    </div>
 </div>
-
-<!--todo: iterate over db entries to make list with links to single transactions -->
-
-<!--<ul>-->
-    <!--<li ng-repeat="transaction in transactions">{{ transaction.amount }}, {{ transaction.category }}, {{ transaction.expense }}</li>-->
-<!--</ul>-->

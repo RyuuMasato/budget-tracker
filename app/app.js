@@ -11,7 +11,7 @@ var app = angular.module( 'myApp', [
                 'ngAnimate'
 ]);
 
-app.config(function($routeProvider,$momentProvider,$mdThemingProvider) {
+app.config(function($routeProvider,$momentProvider) {
         $routeProvider.when('/transactions', {
             templateUrl: 'transactions/transactions.html',
             controller: 'transactionsCtrl',
@@ -26,23 +26,4 @@ app.config(function($routeProvider,$momentProvider,$mdThemingProvider) {
         $momentProvider
             .asyncLoading(false)
             .scriptUrl('bower_components/angular-momentjs/angular-momentjs.min.js');
-        $mdThemingProvider.theme('default')
-            .primaryPalette('blue', {
-                'default': '200',
-                'hue-1': '100',
-                'hue-2': '600',
-                'hue-3': 'A100'
-            })
-            .accentPalette('green', {
-                'default': '200',
-                'hue-1': '100',
-                'hue-2': '600',
-                'hue-3': 'A100'
-            })
-            .warnPalette('red', {
-                'default': '200',
-                'hue-1': '100',
-                'hue-2': '600',
-                'hue-3': 'A100'
-        });
     });

@@ -13,45 +13,44 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
 
 <div layout="row" ng-controller="transactionsCtrl">
+
+    <!-- Left SideNav -->
     <md-sidenav md-component-id="left" class="md-sidenav-left">
         <section layout="column" layout-align="center center" layout-wrap>
             <md-content>
-                <div layout="row" layout-align="center center" layout-wrap><h1>Budget Tracker</h1></div>
-                <md-button class="md-primary" ng-click="openLeftMenu()" go-click="/newtransaction">New Transaction</md-button>
-                <md-button class="md-primary" ng-click="openLeftMenu()" go-click="/transactions">Transactions</md-button>
+                <div layout="row" layout-align="center center" layout-margin layout-wrap><span class="md-display-1">Settings</span></div>
+                <md-input-container layout="row" layout-align="center center" layout-margin layout-wrap>
+                    <md-button class="md-primary" ng-click="openLeftMenu()">Close</md-button>
+                    <md-button class="md-primary" ng-click="openLeftMenu()">save</md-button>
+                </md-input-container>
             </md-content>
         </section>
     </md-sidenav>
-    <section flex="66">
-        <md-content>
-            Budget Tracker
-            <md-button ng-click="openLeftMenu()">
-                Open Menu
-            </md-button>
-            <md-button class="md-primary" go-click="/newtransaction">New Transaction</md-button>
-            <md-button class="md-primary" go-click="/transactions">Transactions</md-button>
-        </md-content>
+
+    <!-- NavBar -->
+    <!-- Left -->
+    <section layout="row" layout-align="start center" layout-margin>
+        <span class="md-display-2">Budget Tracker</span>
     </section>
-    <span flex></span>
-    <section flex>
-        <md-content>
-            <md-button class="md-primary" ng-click="openRightMenu()">Search Transaction</md-button>
-        </md-content>
-    </section>
-    <md-sidenav md-component-id="right" class="md-sidenav-right">
+
+    <!-- Right -->
+    <section layout="row" layout-align="end center" flex>
         <form>
             <md-input-container>
                 <label for="search">Search Transaction</label>
                 <input id="search" type="text" ng-model="data">
             </md-input-container>
-            <md-button class="md-primary" ng-click="openRightMenu()">Close</md-button>
         </form>
-    </md-sidenav>
+        <md-button class="md-primary" go-click="/transactions">Transactions</md-button>
+        <md-button class="md-primary" go-click="/newtransaction">New Transaction</md-button>
+        <md-button class="md-primary" ng-click="openLeftMenu()">Settings</md-button>
+    </section>
 </div>
 
   <!--[if lt IE 7]>
