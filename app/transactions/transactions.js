@@ -11,17 +11,53 @@ var app = angular.module('myApp.transactions', ['ngRoute','firebase', 'ngMateria
     );
 
 app.controller('transactionsCtrl', ['$scope', '$firebaseArray', '$mdSidenav', '$location', function($scope, $firebaseArray, $mdSidenav) {
-    var ref = new Firebase('https://budget-tracker-application.firebaseio.com/transactions');
+    var ref = new Firebase('https://budget-tracker-application.firebaseio.com/transactions').orderByChild('date');
+    var transactions = $firebaseArray(ref);
     $scope.transactions = $firebaseArray(ref);
+    $scope.allTransactions = true;
+    $scope.temporaryTransaction = null;
 
     // Add new transaction
     $scope.addTransaction = function() {
-        $scope.transactions.$add({
+        transactions.$add({
             'date': formatDate($scope.newDate),
             'amount': formatCurrency($scope.newAmount),
             'category': formatCategory($scope.newCategory),
             'expense': formatExpense($scope.newExpense)
         });
+    };
+    $scope.resetAddTransaction = function() {
+        $scope.newDate = null;
+        $scope.newAmount = null;
+        $scope.newCategory = null;
+        $scope.newExpense = null;
+    };
+
+    // test for edits and deleting
+    $scope.setTransaction = function(item) {
+      //  Y U NO WORK??!!!!
+      console.log(transactions.$getRecord(item.$id).category);
+        var dinges = transactions.$getRecord(item.$id);
+
+        dinges.category = 'something else';
+
+        transactions.$save(dinges);
+
+        //$scope.newDate = $scope.transaction.date;
+        //$scope.newAmount = $scope.transaction.amount;
+        //$scope.newCategory =  $scope.transactions.$getRecord(transaction.$id).category;
+        //$scope.newExpense = $scope.transaction.expense;
+    };
+    $scope.updateTransaction = function() {
+        transactions.$save({
+            'date': formatDate($scope.newDate),
+            'amount': formatCurrency($scope.newAmount),
+            'category': formatCategory($scope.newCategory),
+            'expense': formatExpense($scope.newExpense)
+        });
+    };
+    $scope.deleteTransaction = function(transaction) {
+        transactions.$remove($scope.transactions.$getRecord(transaction.$id));
     };
 
     // Formatting for display and database
@@ -63,6 +99,27 @@ app.controller('transactionsCtrl', ['$scope', '$firebaseArray', '$mdSidenav', '$
     };
     $scope.openRightMenu = function() {
         $mdSidenav('right').toggle();
+    };
+
+    $scope.showAllTransactions = function() {
+        $scope.showTransactions = true;
+        $scope.editTransactions = false;
+        $scope.newTransactions = false;
+    };
+    $scope.showEditTransactions = function() {
+        $scope.showTransactions = false;
+        $scope.editTransactions = true;
+        $scope.newTransactions = false;
+    };
+    $scope.showAllTransactions = function() {
+        $scope.showNewTransactions = false;
+        $scope.editTransactions = false;
+        $scope.newTransactions = true;
+    };
+
+
+    $scope.test = function() {
+      console.log($scope.transaction)
     };
 
 }]);

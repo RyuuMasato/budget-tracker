@@ -2,7 +2,7 @@
     <div flex="66">
         <div layout="row" layout-align="center center" layout-margin><span class="md-display-1">Transactions</span></div>
         <md-input-container layout="row" ng-controller="transactionsCtrl" ng-repeat="item in transactions">
-            <md-button class="md-button" flex>
+            <md-button style="background-color: rgba(200, 200, 200, 0.4);" class="md-button" ng-click="setTransaction(item)" flex>
                 <section layout="row">
                     <section layout="row" layout-align="start center" flex>
                         <span class="md-body-2" layout="row" layout-align="start center" layout-margin flex>Category: </span>
@@ -25,7 +25,7 @@
                         <span class="md-body-1" layout="row" layout-align="end center" layout-margin flex>{{item.expense}}</span>
                     </section>
                 </section>
-            </md-input-container>
-        </div>
+            </md-button>
+        </md-input-container>
     </div>
 </div>

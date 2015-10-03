@@ -22,6 +22,11 @@ app.config(function($routeProvider,$momentProvider) {
             controller: 'transactionsCtrl',
             controllerAs: 'transactions'
         });
+        $routeProvider.when('/edittransactions', {
+            templateUrl: 'transactions/edittransactions.html',
+            controller: 'transactionsCtrl',
+            controllerAs: 'transactions'
+        });
         $routeProvider.otherwise({redirectTo: '/newtransactions'});
         $momentProvider
             .asyncLoading(false)
